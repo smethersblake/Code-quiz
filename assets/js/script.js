@@ -60,24 +60,26 @@ const selctions = [
 //     }
 //     introText.appendChild(questionEl)
 // }
-
-
-
-// startbtn.addEventListener("click", begin);
-startbtn.addEventListener("click", function() {
-    // show the first set of questions
-
-    
+var questionNum = 0;
+var answerbtn = document.querySelector(".answer-btn");
+var populateAnswers = function() {
+    answerbtn.textContent = "";
     for (let i = 0; i < Object.keys(selctions[0]).length; i++) {
         //create html elements to hold the data
-        var answertext = document.createElement("h2");
-        answertext.textContent = selctions[0][i];
+        var answertext = document.createElement("button");
+        answertext.textContent = selctions[questionNum][i];
 
 
         // get html on page
-        // .append(selctions)
-        console.log(answertext)
-
-        
-        }
+        answerbtn.append(answertext)
+    }
+    questionNum++;
+}
+// startbtn.addEventListener("click", begin);
+startbtn.addEventListener("click", function() {
+    // show the first set of questions
+    populateAnswers();
+    })
+answerbtn.addEventListener("click", function() {
+    populateAnswers();
 })
