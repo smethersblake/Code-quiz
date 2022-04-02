@@ -5,19 +5,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JavaScript quiz</title>
         <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
         <header>
-            <!-- view high scrores link -->
-            <!-- timer -->
+            <div>
+                <!-- view high scrores link -->
+                <ul>
+                    <li>
+                        View High Scores
+                    </li>
+                    <li id="timer">
+                        <!-- will add time later with JS -->
+                        Time: 60
+                    </li>
+                </ul>
+                <!-- timer -->
+            </div>
         </header>
         <main>
             <!-- welcome to quiz element -->
-            <div>
+            <div class="welcome-title">
+                <h1>Welcome to the JavaScript Quiz</h1>
+            </div>
+            <div class="questions" id="qustions">
+                <h4 class="intro" id="intro">
+                    <strong>Answer the JavaScrpit questions in the time limit. Wrong answers will subtract time from
+                    your time. At the end of the quiz your High Score will be tallied up and displayed
+                    for you to submit to the High Score Board</strong>
+                </h4>
+                <div class="answer-btn"></div>
+                <button class="start-btn" id="start-btn">Start</button>
 
             </div>
             <!-- questions display -->
-            <div>
+            <div class="questions" id="questions">
 
             </div>
             <!-- multiple choices buttons -->
