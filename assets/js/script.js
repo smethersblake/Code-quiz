@@ -1,7 +1,7 @@
 var questions = document.querySelector("#questions")
 var startbtn = document.querySelector("#start-btn")
 var introText = document.querySelector("#intro")
-var timer = document.querySelector("#timer")
+var timerText = document.querySelector("#timer")
 const selctions = [
     {
         0: "answer 1",
@@ -34,52 +34,58 @@ const selctions = [
         3: "answer 20"
     }
 ]
-// var begin = function(){
-//     introText.textContent = ""
-//     console.log("click")
-//     startbtn.remove();
-//     // start timer function
-//     timer.textContent = 5;
-//     questions();
-//     setInterval(function(){
-//         if (timer.textContent <= 0){
-//             console.log("time up")
-//             clearInterval();
-//         }
-//             else{
 
-//                 timer.textContent--
-//             }
-//     }, 1000) 
-// }
-// var questions = function(){
-//     var questionEl = document.createElement("div");
-//     for (i = 0; i < selctions.length; i++) {
-//         console.log(selctions[0][i])
-//         questionEl.textContent = selctions[0][i]
-//     }
-//     introText.appendChild(questionEl)
-// }
+var choices = []
 var questionNum = 0;
+var timer = 100;
 var answerbtn = document.querySelector(".answer-btn");
-var populateAnswers = function() {
-    answerbtn.textContent = "";
-    for (let i = 0; i < Object.keys(selctions[0]).length; i++) {
-        //create html elements to hold the data
-        var answertext = document.createElement("button");
-        answertext.textContent = selctions[questionNum][i];
-
-
-        // get html on page
-        answerbtn.append(answertext)
-    }
-    questionNum++;
-}
 // startbtn.addEventListener("click", begin);
 startbtn.addEventListener("click", function() {
     // show the first set of questions
     populateAnswers();
-    })
-answerbtn.addEventListener("click", function() {
-    populateAnswers();
+    setInterval(function() {
+        timer--;
+        timerText.textContent = timer
+        console.log(timer)
+    }, 1000)
 })
+
+
+answerbtn.addEventListener("click", function(event) {
+    populateAnswers(event);
+    // choices.push(event.target.textContent)
+    // console.log(choices)
+})
+var populateAnswers = function(event) {
+    if (event) {
+        choices.push(event.target.textContent)
+    }
+    
+    answerbtn.textContent = "";
+    if (choices.length === 5) {
+        showAnswers();
+    }
+    else {
+        for (let i = 0; i < Object.keys(selctions[0]).length; i++) {
+            //create html elements to hold the data
+            var answertext = document.createElement("button");
+            answertext.textContent = selctions[questionNum][i];
+            answerbtn.append(answertext)
+    }
+
+
+        // get html on page
+    }
+    questionNum++;
+    if (questionNum > choices.length) {
+        showAnswers();
+        console.log(choices)
+    }
+}
+var showAnswers = function() {
+    for (let i = 0; i < choices.length; i++) {
+        var choicesData = document.createElement("h3");
+        choicesData.textContent = choices[i];
+        
+    }
+}
