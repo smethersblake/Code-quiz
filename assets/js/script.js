@@ -38,12 +38,13 @@ const selctions = [
 var choices = []
 var questionNum = 0;
 var timer = 100;
+var timerCountDown;
 var answerbtn = document.querySelector(".answer-btn");
 // startbtn.addEventListener("click", begin);
 startbtn.addEventListener("click", function() {
     // show the first set of questions
     populateAnswers();
-    setInterval(function() {
+    timerCountDown = setInterval(function() {
         timer--;
         timerText.textContent = timer
         console.log(timer)
@@ -57,11 +58,11 @@ answerbtn.addEventListener("click", function(event) {
     // console.log(choices)
 })
 var populateAnswers = function(event) {
+    answerbtn.textContent = "";
     if (event) {
         choices.push(event.target.textContent)
     }
     
-    answerbtn.textContent = "";
     if (choices.length === 5) {
         showAnswers();
     }
@@ -77,15 +78,18 @@ var populateAnswers = function(event) {
         // get html on page
     }
     questionNum++;
-    if (questionNum > choices.length) {
-        showAnswers();
-        console.log(choices)
-    }
+    // if (questionNum > choices.length) {
+    //     showAnswers();
+    //     console.log(choices)
+    //}
 }
 var showAnswers = function() {
+
+    clearInterval(timerCountDown)
     for (let i = 0; i < choices.length; i++) {
         var choicesData = document.createElement("h3");
         choicesData.textContent = choices[i];
         
+        answerbtn.append(choicesData)
     }
 }
