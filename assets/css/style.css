@@ -18,3 +18,39 @@ main div h4 {
     margin-top: 30px;
 
 }
+.answer-btn button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 12px;
+    height: 50px;
+    width: 100px;
+    padding: 10px;
+}
+.answer-check {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.answer-btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    flex-direction: column;
+    width: 8%;
+}
+.solutions{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+.questions{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2px;
+    padding: 10px;
+    align-items: flex-start;
+}
