@@ -3,6 +3,8 @@ var startbtn = document.querySelector("#start-btn")
 var introText = document.querySelector("#intro")
 var timerText = document.querySelector("#timer")
 var answerCheck = document.querySelector(".answer-check")
+var scoreList = document.querySelector(".score-list")
+var questionEl = document.querySelector('.questions')
 var s1 = document.querySelector('.s1')
 var s2 = document.querySelector('.s2')
 var s3 = document.querySelector('.s3')
@@ -41,19 +43,16 @@ const selctions = [
         3: "D"
     }
 ]
-const qText = [
-    "question one", "question two", "question three", "question four", "qustion five"
-]
-
 var choices = []
 var questionNum = 0;
 var timer = 100;
 var timerCountDown;
 var answerbtn = document.querySelector(".answer-btn");
-
+// scoreList.textContent.addEventListener("click", showAnswers)
 startbtn.addEventListener("click", function() {
     // show the first set of questions
     populateAnswers();
+    scoreList = null;
     startbtn.remove();
     timerCountDown = setInterval(function() {
         timer--;
@@ -61,6 +60,7 @@ startbtn.addEventListener("click", function() {
         console.log(timer)
     }, 1000)
 })
+
 
 var questionText = function(){
     null;
@@ -168,9 +168,15 @@ var showAnswers = function() {
     answerCheck.appendChild(submitText)
     answerCheck.append(submitbtn)
     submitbtn.addEventListener('click', function() {
-        console.log('click')
-        highScoreSubmit(submitText.value, timer);
-        highScoreList();
+        if (submitText.value == '' || submitText.value === null) {
+            alert("Please enter in your name.")
+            return false
+        }
+        else {
+            console.log('click')
+            highScoreSubmit(submitText.value, timer);
+            highScoreList();
+        }
         
     })
 }
@@ -186,9 +192,16 @@ var highScoreList = function() {
     // intro.textContent = ''
     intro.textContent = "High Score: " + highScores[0] + ': ' + highScores[1]
     answerCheck.textContent = ''
+    console.log("Scores")
+    restart();
+}
+var restart = function() {
     var retryBtn = document.createElement('button')
     retryBtn.textContent = "Retry"
     answerCheck.append(retryBtn)
+    retryBtn.addEventListener('click', function() {
+        location.reload();
+    })
 }
 var solutions = function() {
     solutionReset();
@@ -241,4 +254,15 @@ var loadScores = function() {
     highScores = scores
     console.log(highScores[1])
 }
+var timeOut = function() {
+    timer = 0;
+    timerText.textContent = 0
+    answerCheck.textContent = ''
+    solutionReset();
+    answerbtn.remove()
+    highScoreList();
+    clearInterval(timerCountDown)
+}
+scoreList.addEventListener('click', timeOut)
+// startbtn.remove();
 loadScores();
