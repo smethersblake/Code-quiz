@@ -49,12 +49,24 @@ var timer = 100;
 var timerCountDown;
 var answerbtn = document.querySelector(".answer-btn");
 // scoreList.textContent.addEventListener("click", showAnswers)
+var noTime = function() {
+    if (timer <= 0) {
+        var solutionEl = document.querySelector('.solutions')
+        var timeUp = document.createElement('h3')
+        timeUp.textContent = 'Time is up!'
+        solutionEl.appendChild(timeUp)
+        timeOut();
+    }
+}
 startbtn.addEventListener("click", function() {
     // show the first set of questions
     populateAnswers();
     scoreList = null;
     startbtn.remove();
     timerCountDown = setInterval(function() {
+        if (timer <= 0){
+            noTime();
+        }
         timer--;
         timerText.textContent = timer
         console.log(timer)
@@ -68,6 +80,7 @@ var questionText = function(){
 answerbtn.addEventListener("click", function(event) {
     populateAnswers(event);
 })
+// switch case to see if the right answer is selected
 var populateAnswers = function(event) {
     answerbtn.textContent = "";
     solutions();
@@ -256,13 +269,15 @@ var loadScores = function() {
 }
 var timeOut = function() {
     timer = 0;
-    timerText.textContent = 0
+    timerText.textContent = ''
     answerCheck.textContent = ''
     solutionReset();
     answerbtn.remove()
+    startbtn.remove()
     highScoreList();
     clearInterval(timerCountDown)
 }
+
 scoreList.addEventListener('click', timeOut)
 // startbtn.remove();
 loadScores();
