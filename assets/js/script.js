@@ -11,6 +11,7 @@ var s3 = document.querySelector('.s3')
 var s4 = document.querySelector('.s4')
 var s5 = document.querySelector('.s5')
 var highScores = []
+// answer button array
 const selctions = [
     {
         0: "A",
@@ -48,7 +49,7 @@ var questionNum = 0;
 var timer = 100;
 var timerCountDown;
 var answerbtn = document.querySelector(".answer-btn");
-// scoreList.textContent.addEventListener("click", showAnswers)
+// function for when time has ran out
 var noTime = function() {
     if (timer <= 0) {
         var solutionEl = document.querySelector('.solutions')
@@ -58,6 +59,7 @@ var noTime = function() {
         timeOut();
     }
 }
+// button to start the quiz
 startbtn.addEventListener("click", function() {
     // show the first set of questions
     populateAnswers();
@@ -141,7 +143,7 @@ var populateAnswers = function(event) {
                 break;
         }
     }
-    
+    // checking if all questions are asked
     if (choices.length === 5) {
         showAnswers();
     }
@@ -155,6 +157,7 @@ var populateAnswers = function(event) {
     }
     questionNum++;
 }
+// setting name and score as object to save in localStorage
 var highScoreSubmit = function player(name, score) {
     this.name = name;
     this.score = score;
@@ -169,6 +172,7 @@ var highScoreSubmit = function player(name, score) {
     }
     
 }
+// shows your socre and asked for your name to see if you have the high score
 var showAnswers = function() {
 
     clearInterval(timerCountDown)
@@ -180,6 +184,7 @@ var showAnswers = function() {
     submitbtn.textContent = 'Submit'
     answerCheck.appendChild(submitText)
     answerCheck.append(submitbtn)
+    // submit button for high score element
     submitbtn.addEventListener('click', function() {
         if (submitText.value == '' || submitText.value === null) {
             alert("Please enter in your name.")
@@ -193,14 +198,17 @@ var showAnswers = function() {
         
     })
 }
+// function for if the answer is answerd incorrectly
 var wrongAnswer = function() {
     timer = timer - 10;
     answerCheck.textContent = "Wrong Answer"
 }
+// function for if the answer is correcetly answered
 var correctAnswer = function() {
 
     answerCheck.textContent = "Correct Answer"
 }
+// high score display
 var highScoreList = function() {
     // intro.textContent = ''
     intro.textContent = "High Score: " + highScores[0] + ': ' + highScores[1]
@@ -208,6 +216,7 @@ var highScoreList = function() {
     console.log("Scores")
     restart();
 }
+// retry the quiz at the end or if time has ran out
 var restart = function() {
     var retryBtn = document.createElement('button')
     retryBtn.textContent = "Retry"
@@ -216,6 +225,7 @@ var restart = function() {
         location.reload();
     })
 }
+// questions and possible answers
 var solutions = function() {
     solutionReset();
     switch(questionNum) {
@@ -255,6 +265,7 @@ var solutions = function() {
             s4.textContent = 'all of the above'
     }
 }
+// resets the possible answer field
 var solutionReset = function() {
     introText.textContent = ''
     s1.textContent = ''
@@ -262,11 +273,13 @@ var solutionReset = function() {
     s3.textContent = ''
     s4.textContent = ''
 }
+// loads the high score from local storage
 var loadScores = function() {
     var scores = JSON.parse(localStorage.getItem('player'))
     highScores = scores
     console.log(highScores[1])
 }
+// function for if time has ran out
 var timeOut = function() {
     timer = 0;
     timerText.textContent = ''
@@ -277,7 +290,7 @@ var timeOut = function() {
     highScoreList();
     clearInterval(timerCountDown)
 }
-
+// addEventListener for the 'View High Socre' text
 scoreList.addEventListener('click', timeOut)
 // startbtn.remove();
 loadScores();
