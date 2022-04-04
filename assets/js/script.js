@@ -163,9 +163,15 @@ var highScoreSubmit = function player(name, score) {
     this.score = score;
     console.log(name, score)
     var player = [name, score]
-    if( score > highScores[1]) {
+    if(highScores == null || highScores == ''){
+        localStorage.setItem('player', JSON.stringify(player))
+        highScores = player
+        console.log('you got the high score')
+    }
+    else if( score > highScores[1]) {
         console.log('yes')
         localStorage.setItem('player', JSON.stringify(player))
+        highScores = player
     }
     else {
         console.log('no')
@@ -277,7 +283,7 @@ var solutionReset = function() {
 var loadScores = function() {
     var scores = JSON.parse(localStorage.getItem('player'))
     highScores = scores
-    console.log(highScores[1])
+    //console.log(highScores[1])
 }
 // function for if time has ran out
 var timeOut = function() {
